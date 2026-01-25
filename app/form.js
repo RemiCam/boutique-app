@@ -1,9 +1,19 @@
-import { Text, View } from "react-native";
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import Screen from "../components/Screen";
 
 export default function FormScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Form Screen</Text>
-    </View>
+    <Screen>
+      <Text style={styles.text}>Form Screen</Text>
+    </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 20,
+    textAlign: "center",
+    marginTop: 20,
+  },
+});
