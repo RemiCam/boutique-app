@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TextInput, Button } from "react-native";
+import { StyleSheet } from "react-native";
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
+import AppInput from "../components/AppInput"; // Use reusable AppInput component
+import AppText from "../components/AppText"; // Use reusable AppText component
 
 export default function FormScreen() {
   const [name, setName] = useState(""); // Controlled input for Name
@@ -24,20 +26,18 @@ export default function FormScreen() {
 
   return (
     <Screen>
-      <Text style={styles.title}>Formulaire</Text>
-      <TextInput
-        style={styles.input}
+      <AppText style={styles.title}>Formulaire</AppText>
+      <AppInput
         placeholder="Enter your name"
         value={name}
         onChangeText={(text) => setName(text)}
       />
-      <TextInput
-        style={styles.input}
+      <AppInput
         placeholder="Enter your email"
         value={email}
         onChangeText={(text) => setEmail(text)}
       />
-      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      {error ? <AppText style={styles.errorText}>{error}</AppText> : null}
       <AppButton
         title="Submit"
         onPress={handleSubmit}
@@ -53,14 +53,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    marginBottom: 16,
   },
   errorText: {
     color: "red",
