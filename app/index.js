@@ -9,19 +9,24 @@ export default function HomeScreen() {
   const router = useRouter();
 
   return (
-    <Screen>
-      <AppText style={styles.title}>Welcome to Frosty Gear!</AppText>
-      <AppText style={styles.subtitle}>
-        Your one-stop shop for all things **winter sports** and **cozy clothing**. Whether you're hitting the slopes or staying warm by the fire, we’ve got you covered!
-      </AppText>
-      <View style={styles.buttons}>
+    <Screen style={styles.container}>
+      <View style={styles.content}>
+        <AppText style={styles.title}>Welcome to {"\n"}Everest Gear</AppText>
+        <AppText style={styles.subtitle}>
+          Gear up for your next adventure on the slopes. From premium jackets to cozy
+          base layers, Everest Gear has everything you need to stay warm and stylish in the freezing outdoors.
+        </AppText>
+      </View>
+      <View style={styles.navButtons}>
         <AppButton
-          title="Fill Out Preferences"
+          title="Subscribe"
           onPress={() => router.push("/form")}
+          style={styles.button}
         />
         <AppButton
-          title="Browse Winter Essentials"
+          title="Browse Essentials"
           onPress={() => router.push("/items")}
+          style={styles.buttonAlt}
         />
       </View>
     </Screen>
@@ -29,21 +34,39 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 32,
+    backgroundColor: "#e9f5f9", // Cold, light blue background
+  },
+  content: {
+    marginVertical: 16,
+  },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: "bold",
-    marginBottom: 16,
+    color: "#003366", // Deep navy blue
     textAlign: "center",
   },
   subtitle: {
-    fontSize: 18,
-    marginBottom: 24,
-    color: "#555",
+    fontSize: 16,
+    color: "#555", // Cool gray color
     textAlign: "center",
+    marginVertical: 16,
+    lineHeight: 24,
   },
-  buttons: {
-    marginTop: 16,
+  navButtons: {
+    marginTop: 32,
     width: "100%",
     alignItems: "center",
+  },
+  button: {
+    backgroundColor: "#003366", // Deep navy
+    marginBottom: 16,
+  },
+  buttonAlt: {
+    backgroundColor: "#005580", // Lighter navy for alternative button
   },
 });
