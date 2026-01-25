@@ -1,47 +1,59 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import Screen from "../../components/Screen";
-
-const items = [
-  { id: "1", name: "Item 1", price: "$100", description: "High-quality item" },
-  { id: "2", name: "Item 2", price: "$200", description: "Exclusive product" },
-  { id: "3", name: "Item 3", price: "$300", description: "Best seller" },
-];
+import { items } from "../../features/items/items.data"; // Import updated item data
 
 export default function ItemDetailsScreen() {
-  const { id } = useLocalSearchParams();
+  const { id } = useLocalSearchParams(); // Get the dynamic id from the route
   const item = items.find((item) => item.id === id);
 
   if (!item) {
     return (
       <Screen>
-        <Text style={styles.errorText}>Item not found!</Text>
+        <Text style={styles.notFoundText}>Oops! The item was not found.</Text>
       </Screen>
     );
   }
 
   return (
     <Screen>
+      <Image source={item.image} style={styles.image} />
       <Text style={styles.title}>{item.name}</Text>
-      <Text style={styles.text}>Price: {item.price}</Text>
-      <Text style={styles.text}>Description: {item.description}</Text>
+      <Text style={styles.price}>{item.price}</Text>
+      <Text style={styles.description}>{item.description}</Text>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
+  image: {
+    width: "100%",
+    height: 200,
+    resizeMode: "cover",
+    borderRadius: 8,
+    marginBottom: 16,
+  },
   title: {
     fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 16,
-  },
-  text: {
-    fontSize: 18,
     marginBottom: 8,
   },
-  errorText: {
+  price: {
+    fontSize: 18,
+    color: "#6200ee",
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  description: {
+    fontSize: 16,
+    lineHeight: 22,
+    color: "#555",
+  },
+  notFoundText: {
     fontSize: 18,
     color: "red",
+    textAlign: "center",
+    marginTop: 32,
   },
 });

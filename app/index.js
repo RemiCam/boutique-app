@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
-import Title from "../components/Title";
+import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import Screen from "../components/Screen";
 
@@ -10,24 +10,40 @@ export default function HomeScreen() {
 
   return (
     <Screen>
-      <Title>Welcome to Boutique App!</Title>
-      <View style={styles.presentation}>
-        <Title style={styles.subtitle}>Explore the boutique items:</Title>
+      <AppText style={styles.title}>Welcome to Frosty Gear!</AppText>
+      <AppText style={styles.subtitle}>
+        Your one-stop shop for all things **winter sports** and **cozy clothing**. Whether you're hitting the slopes or staying warm by the fire, we’ve got you covered!
+      </AppText>
+      <View style={styles.buttons}>
+        <AppButton
+          title="Fill Out Preferences"
+          onPress={() => router.push("/form")}
+        />
+        <AppButton
+          title="Browse Winter Essentials"
+          onPress={() => router.push("/items")}
+        />
       </View>
-      <AppButton title="Go to Form" onPress={() => router.push("/form")} />
-      <AppButton title="Go to Items List" onPress={() => router.push("/items")} />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  presentation: {
-    marginVertical: 16,
-    alignItems: "center",
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 16,
+    textAlign: "center",
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 18,
+    marginBottom: 24,
+    color: "#555",
     textAlign: "center",
-    color: "#666",
+  },
+  buttons: {
+    marginTop: 16,
+    width: "100%",
+    alignItems: "center",
   },
 });
