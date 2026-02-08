@@ -1,32 +1,47 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
-import AppText from "../components/AppText";
-import AppButton from "../components/AppButton";
-import Screen from "../components/Screen";
+import { useRouter } from 'expo-router';
+import { StyleSheet, View } from 'react-native';
+import AppButton from '../components/AppButton';
+import AppText from '../components/AppText';
+import Screen from '../components/Screen';
+import { useTheme } from '../context/ThemeContext';
 
 export default function HomeScreen() {
   const router = useRouter();
+  const { theme, isDark, toggleTheme } = useTheme();
 
   return (
-    <Screen style={styles.container}>
+    <Screen style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.content}>
-        <AppText style={styles.title}>Welcome to {"\n"}Everest Gear</AppText>
-        <AppText style={styles.subtitle}>
+        <AppText style={[styles.title, { color: theme.text }]}>
+          Welcome to {'\n'}Glacier Gear
+        </AppText>
+        <AppText style={[styles.subtitle, { color: theme.textSecondary }]}>
           Gear up for your next adventure on the slopes. From premium jackets to cozy
-          base layers, Everest Gear has everything you need to stay warm and stylish in the freezing outdoors.
+          base layers, Glacier Gear has everything you need to stay warm and stylish.
         </AppText>
       </View>
+      
+      <AppButton
+        title={isDark ? '☀️ Light Mode' : '🌙 Dark Mode'}
+        onPress={toggleTheme}
+        style={[styles.themeButton, { backgroundColor: theme.secondary }]}
+      />
+
       <View style={styles.navButtons}>
         <AppButton
-          title="Subscribe"
-          onPress={() => router.push("/form")}
-          style={styles.button}
+          title="Fill Out Preferences"
+          onPress={() => router.push('/form')}
+          style={{ backgroundColor: theme.primary }}
         />
         <AppButton
           title="Browse Essentials"
-          onPress={() => router.push("/items")}
-          style={styles.buttonAlt}
+          onPress={() => router.push('/items')}
+          style={{ backgroundColor: theme.secondary }}
+        />
+        <AppButton
+          title="Check Weather"
+          onPress={() => router.push('/weather')}
+          style={{ backgroundColor: theme.secondary }}
         />
       </View>
     </Screen>
@@ -35,38 +50,31 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    justifyContent: "space-between",
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 32,
-    backgroundColor: "#e9f5f9", // Cold, light blue background
   },
   content: {
     marginVertical: 16,
   },
   title: {
     fontSize: 32,
-    fontWeight: "bold",
-    color: "#003366", // Deep navy blue
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
-    color: "#555", // Cool gray color
-    textAlign: "center",
+    textAlign: 'center',
     marginVertical: 16,
     lineHeight: 24,
   },
   navButtons: {
     marginTop: 32,
-    width: "100%",
-    alignItems: "center",
+    width: '100%',
+    alignItems: 'center',
   },
-  button: {
-    backgroundColor: "#003366", // Deep navy
+  themeButton: {
     marginBottom: 16,
-  },
-  buttonAlt: {
-    backgroundColor: "#005580", // Lighter navy for alternative button
   },
 });

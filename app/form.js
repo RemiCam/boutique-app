@@ -1,47 +1,88 @@
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
-import Screen from "../components/Screen";
-import AppButton from "../components/AppButton";
-import AppInput from "../components/AppInput"; // Use reusable AppInput component
-import AppText from "../components/AppText"; // Use reusable AppText component
+import { useState } from 'react';
+import { StyleSheet } from 'react-native';
+import AppButton from '../components/AppButton';
+import AppInput from '../components/AppInput';
+import AppText from '../components/AppText';
+import Screen from '../components/Screen';
+import { useTheme } from '../context/ThemeContext';
+import { validateForm } from '../utils/validation';
 
 export default function FormScreen() {
-  const [name, setName] = useState(""); // Controlled input for Name
-  const [email, setEmail] = useState(""); // Controlled input for Email
-  const [error, setError] = useState(""); // Error message state
-
-  // Validation logic
-  const isFormValid = () => name.trim() !== "" && email.includes("@");
+  const { theme } = useTheme();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState({ name: '', email: '' });
 
   const handleSubmit = () => {
-    // If validation fails, set error
-    if (!isFormValid()) {
-      setError("Please enter a valid name and email.");
+    const result = validateForm({ name, email });
+
+    if (!result.success) {
+      const fieldErrors = result.error.flatten().fieldErrors;
+      setErrors({
+        name: fieldErrors.name?.[0] || '',
+        email: fieldErrors.email?.[0] || '',
+      });
       return;
     }
-    // If validation passes, clear error and submit
-    setError("");
+
+    setErrors({ name: '', email: '' });
     alert(`Submitted: \nName: ${name}\nEmail: ${email}`);
   };
 
+  const handleNameChange = (text) => {
+    setName(text);
+    if (errors.name) {
+      setErrors((prev) => ({ ...prev, name: '' }));
+    }
+  };
+
+  const handleEmailChange = (text) => {
+    setEmail(text);
+    if (errors.email) {
+      setErrors((prev) => ({ ...prev, email: '' }));
+    }
+  };
+
+  const isFormValid = () => {
+    const result = validateForm({ name, email });
+    return result.success;
+  };
+
   return (
-    <Screen>
-      <AppText style={styles.title}>Formulaire</AppText>
+    <Screen style={{ backgroundColor: theme.background }}>
+      <AppText style={[styles.title, { color: theme.text }]}>
+        Please Fill Out the Form
+      </AppText>
+
       <AppInput
         placeholder="Enter your name"
         value={name}
-        onChangeText={(text) => setName(text)}
+        onChangeText={handleNameChange}
+        style={{ backgroundColor: theme.cardBackground, color: theme.text }}
       />
+      {errors.name ? (
+        <AppText style={[styles.errorText, { color: theme.error }]}>
+          {errors.name}
+        </AppText>
+      ) : null}
+
       <AppInput
         placeholder="Enter your email"
         value={email}
-        onChangeText={(text) => setEmail(text)}
+        onChangeText={handleEmailChange}
+        style={{ backgroundColor: theme.cardBackground, color: theme.text }}
       />
-      {error ? <AppText style={styles.errorText}>{error}</AppText> : null}
+      {errors.email ? (
+        <AppText style={[styles.errorText, { color: theme.error }]}>
+          {errors.email}
+        </AppText>
+      ) : null}
+
       <AppButton
         title="Submit"
         onPress={handleSubmit}
         disabled={!isFormValid()}
+        style={{ backgroundColor: theme.primary }}
       />
     </Screen>
   );
@@ -50,14 +91,12 @@ export default function FormScreen() {
 const styles = StyleSheet.create({
   title: {
     fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 16,
   },
   errorText: {
-    color: "red",
     fontSize: 14,
     marginBottom: 8,
-    textAlign: "center",
   },
 });

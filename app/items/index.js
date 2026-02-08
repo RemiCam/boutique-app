@@ -1,26 +1,31 @@
-import React from "react";
-import { FlatList, Text, StyleSheet, Pressable, View } from "react-native";
-import { useRouter } from "expo-router";
-import Screen from "../../components/Screen";
-import { items } from "../../features/items/items.data"; // Import the updated items data
+import { useRouter } from 'expo-router';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import Screen from '../../components/Screen';
+import { useTheme } from '../../context/ThemeContext';
+import { items } from '../../features/items/items.data';
 
 export default function ItemsListScreen() {
   const router = useRouter();
+  const { theme } = useTheme();
 
   return (
-    <Screen>
-      <Text style={styles.title}>Winter Essentials</Text>
+    <Screen style={{ backgroundColor: theme.background }}>
+      <Text style={[styles.title, { color: theme.text }]}>Winter Essentials</Text>
       <FlatList
         data={items}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <Pressable
-            onPress={() => router.push(`/items/${item.id}`)} // Navigate to details with item id
-            style={styles.itemContainer}
+            onPress={() => router.push(`/items/${item.id}`)}
+            style={[styles.itemContainer, { backgroundColor: theme.cardBackground }]}
           >
             <View>
-              <Text style={styles.itemName}>{item.name}</Text>
-              <Text style={styles.itemPrice}>{item.price}</Text>
+              <Text style={[styles.itemName, { color: theme.text }]}>
+                {item.name}
+              </Text>
+              <Text style={[styles.itemPrice, { color: theme.primary }]}>
+                {item.price}
+              </Text>
             </View>
           </Pressable>
         )}
@@ -32,22 +37,23 @@ export default function ItemsListScreen() {
 const styles = StyleSheet.create({
   title: {
     fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
     marginVertical: 16,
   },
   itemContainer: {
     padding: 16,
     borderBottomWidth: 1,
-    borderColor: "#ddd",
+    borderColor: '#ddd',
+    marginBottom: 8,
+    borderRadius: 8,
   },
   itemName: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   itemPrice: {
     fontSize: 16,
-    color: "#6200ee",
     marginTop: 4,
   },
 });
