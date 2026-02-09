@@ -3,6 +3,9 @@
 # dependencies
 node_modules/
 
+# API variables
+config/apiConfig.js
+
 # Expo
 .expo/
 dist/

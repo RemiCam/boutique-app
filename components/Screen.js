@@ -1,4 +1,5 @@
-import { SafeAreaView, StyleSheet, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, View, useWindowDimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { getMaxWidth } from '../utils/responsive';
 
 const Screen = ({ children, style }) => {
