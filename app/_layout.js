@@ -1,19 +1,18 @@
 import { Stack } from 'expo-router';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
 import { ThemeProvider } from '../context/ThemeContext';
+import { store } from '../store';
 
-export default function Layout() {
+export default function RootLayout() {
   return (
-    <SafeAreaProvider>
+    <Provider store={store}>
       <ThemeProvider>
         <Stack>
-          <Stack.Screen name="index" options={{ title: 'Glacier Gear' }} />
-          <Stack.Screen name="form" options={{ title: 'Form' }} />
-          <Stack.Screen name="items/index" options={{ title: 'Items' }} />
-          <Stack.Screen name="items/[id]" options={{ title: 'Details' }} />
-          <Stack.Screen name="weather" options={{ title: 'Weather' }} />
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="items/index" options={{ title: 'Shop Items' }} />
+          <Stack.Screen name="items/[id]" options={{ title: 'Item Details' }} />
         </Stack>
       </ThemeProvider>
-    </SafeAreaProvider>
+    </Provider>
   );
 }

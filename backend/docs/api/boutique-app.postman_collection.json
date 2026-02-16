@@ -1,0 +1,143 @@
+{
+  "info": {
+    "_postman_id": "4f3c545f-1b2f-4b33-a0ac-705784a766a7",
+    "name": "boutique-app",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Test API",
+      "id": "d23f16cf-5594-486b-8de4-8b196c06894b",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Items",
+      "id": "4fbdac19-4f4e-4520-94b8-11ec8ece1ba5",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/items",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "items"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Item",
+      "id": "f6639784-a1ae-47f9-965e-b9c91180134e",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:3000/api/items/699230169c45ce39e6d77bd9",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "items",
+            "699230169c45ce39e6d77bd9"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Post Item",
+      "id": "a38ccccb-b65c-4deb-a20e-9c593c133cb3",
+      "request": {
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Waterproof Gloves\",\r\n  \"description\": \"Premium waterproof gloves with thermal insulation for extreme cold weather.\",\r\n  \"price\": 79,\r\n  \"image\": \"gloves.jpg\",\r\n  \"category\": \"Accessories\",\r\n  \"inStock\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/items",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "items"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Put Item",
+      "id": "3d637c20-7d6b-4ff7-bf2f-45307822f80b",
+      "request": {
+        "method": "PUT",
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"price\": 89,\r\n  \"inStock\": false,\r\n  \"description\": \"Premium waterproof gloves with thermal insulation. Now on sale!\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/items/6992388a0c2fea005d2c5eb2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "items",
+            "6992388a0c2fea005d2c5eb2"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Item",
+      "id": "94b966c0-5cf6-4a09-8ddb-aeff2903cc3b",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:3000/api/items/6992388a0c2fea005d2c5eb2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "items",
+            "6992388a0c2fea005d2c5eb2"
+          ]
+        }
+      }
+    }
+  ]
+}
